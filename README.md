@@ -5,10 +5,11 @@
 ### Gestion simplifiée du temps Posix
 
 Compilez les fichiers sources :
-'''sh
+´´´sh
 arm-linux-g++ -Wall -Wextra -Wno-psabi td1a.cpp timespec.cpp -o td1a
+
 Sortie :
-'''sh
+´´´sh
 Timespec en millisecondes: 2500 ms
 Millisecondes à Timespec: 2 s, 500000000 nsec
 Temps actuelle: 534203 s, 322701373 nsec
