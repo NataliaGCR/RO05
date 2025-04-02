@@ -6,7 +6,7 @@
 
 Compilez les fichiers sources :
 ```sh
-arm-linux-g++ -Wall -Wextra -Wno-psabi td1a.cpp timespec.cpp -o td1a
+arm-linux-g++ -Wall -Wextra -Wno-psabi td1a.cpp timespec.cpp -o tp1a
 ```
 Sortie :
 ```sh
@@ -26,5 +26,33 @@ t1 n'est pas égal à t2
 t1 est différent de t2
 t1 est supérieur à t2
 ```
+
+
+### Classe Chrono
+
+Compilez les fichiers sources :
+```sh
+arm-linux-g++ -Wall -Wextra -Wno-psabi td1b.cpp Chrono.cpp timespec.cpp -o tp1b
+```
+Sortie :
+```sh
+Démarrage du chronomètre...
+Temps écoulé après 2 secondes : 2000.79 ms
+Chronomètre arrêté.
+Temps écoulé après arrêt : 2001.18 ms
+```
+
+## TD1
+
+### Timers avec callback
+
+### Classe Timer
+
+### Fonction simple consommant du CPU
+
+### Échantillonage du temps d’exécution d’une fonction
+
+### Classe consommatrice de CPU durant un temps donné
+
 
 ![Courbe des valeurs des temps d’exécution en fonction des valeurs de nLoops](TempsExecution_vs_nLoops_TD2C.png)
