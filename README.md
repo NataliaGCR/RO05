@@ -5,11 +5,11 @@
 ### Gestion simplifiée du temps Posix
 
 Compilez les fichiers sources :
-´´´sh
+```sh
 arm-linux-g++ -Wall -Wextra -Wno-psabi td1a.cpp timespec.cpp -o td1a
-
+```
 Sortie :
-´´´sh
+```sh
 Timespec en millisecondes: 2500 ms
 Millisecondes à Timespec: 2 s, 500000000 nsec
 Temps actuelle: 534203 s, 322701373 nsec
@@ -25,5 +25,6 @@ t1 -= t2: 5 s, 200000000 nsec
 t1 n'est pas égal à t2
 t1 est différent de t2
 t1 est supérieur à t2
+```
 
 ![Courbe des valeurs des temps d’exécution en fonction des valeurs de nLoops](TempsExecution_vs_nLoops_TD2C.png)
