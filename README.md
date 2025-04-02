@@ -22,7 +22,7 @@ Reste (t1 - t2): 1 s, 700000000 nsec
 Negaf de t1: - -6 s, 800000000 nsec
 t1 += t2: 8 s, 700000000 nsec
 t1 -= t2: 5 s, 200000000 nsec
-t1 n'est pas égal à t2
+t1 nest pas égal à t2
 t1 est différent de t2
 t1 est supérieur à t2
 ```
