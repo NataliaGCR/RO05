@@ -85,11 +85,72 @@ Tick 15
 
 7. -call_callback(int, siginfo_t*, void*) (privée) Cette méthode est statique pour respecter la signature C exigée par l'API Posix. Elle agit comme un pont entre le handler C et la méthode d'instance callback(). Les utilisateurs n'ont pas besoin d'y accéder directement ; elle est appelée uniquement par le système lors de l'expiration du timer.
 
+Compilez les fichiers sources :
+```sh
+arm-linux-g++ -Wall -Wextra -Wno-psabi td2b.cpp Timer.cpp Chrono.cpp timespec.cpp CountDown.cpp -o tp2b
+```
+Sortie :
+```sh
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+0
+```
+
 ### Fonction simple consommant du CPU
+‍**Justifiez quelle méthodes de Looper peuvent être déclarée const**
+1. double getSample() const : Cette méthode renvoie simplement la valeur actuelle de iLoop sans modifier aucun membre de la classe. 
+2. double stopLoop() : Pas const -> Cette méthode modifie l'attribut doStop (en le passant à true), donc elle ne peut pas être const.
+3. double runLoop(double nLoops) : Pas const -> Cette méthode modifie à la fois iLoop (incrémentation) et doStop (réinitialisation), donc elle ne peut pas être const.
+
+**Comment doit-on qualifier les variables doStop et iLoop si on veut être certain que la boucle d’incrémentation s’exécutera comme attendu ?**
+
+Pour garantir que la boucle d'incrémentation dans Looper::runLoop() s'exécute comme attendu sans optimisations indésirables du compilateur et avec une synchronisation thread-safe (si le code est utilisé en contexte multithread), les variables doStop et iLoop doivent être qualifiées comme suit :
+
+1. std::atomic<bool> doStop;
+    a. Atomicité : garantit que les opérations de lecture/écriture sur doStop sont indivisibles (évite les corruptions de données en multithread).
+    b. Visibilité : Les modifications de doStop sont immédiatement visibles par tous les threads (pas de caching local).
+    c. Évite les optimisations agressives : Le compilateur ne supprimera pas les accès à doStop (contrairement à un bool standard).
+
+2. std::atomic<double> iLoop;
+    a. Atomicité : Nécessaire si iLoop est accédé/modifié par plusieurs threads.
+    b. Précision :assure des opérations thread-safe sur un flottant.
+
+Compilez les fichiers sources :
+```sh
+arm-linux-g++ -Wall -Wextra Looper.cpp td2c.cpp Chrono.cpp  timespec.cpp -o tp2c
+```
+Sortie :
+```sh
+Début des tests de performance...
+----------------------------------------
+     nLoops | Valeur finale | Temps d'exécution
+----------------------------------------
+nLoops:          100 | Valeur finale:          100 | Temps: 0.000023 s
+nLoops:         1000 | Valeur finale:  1000.000000 | Temps: 0.000200 s
+nLoops:        10000 | Valeur finale: 10000.000000 | Temps: 0.001927 s
+nLoops:       100000 | Valeur finale: 100000.000000 | Temps: 0.019218 s
+nLoops:      1000000 | Valeur finale: 1000000.000000 | Temps: 0.192018 s
+nLoops:     10000000 | Valeur finale: 10000000.000000 | Temps: 1.919058 s
+nLoops:    100000000 | Valeur finale: 100000000.000000 | Temps: 19.188925 s
+nLoops:    500000000 | Valeur finale: 500000000.000000 | Temps: 95.944185 s
+nLoops:    750000000 | Valeur finale: 750000000.000000 | Temps: 143.916219 s
+nLoops:   1000000000 | Valeur finale: 1000000000.000000 | Temps: 191.888351 s
+----------------------------------------
+Tests terminés.
+```
+
+![Courbe des valeurs des temps d’exécution en fonction des valeurs de nLoops](TempsExecution_vs_nLoops_TD2C.png)
 
 ### Échantillonage du temps d’exécution d’une fonction
 
 ### Classe consommatrice de CPU durant un temps donné
 
 
-![Courbe des valeurs des temps d’exécution en fonction des valeurs de nLoops](TempsExecution_vs_nLoops_TD2C.png)
