@@ -147,7 +147,7 @@ nLoops:   1000000000 | Valeur finale: 1000000000.000000 | Temps: 191.888351 s
 Tests terminés.
 ```
 
-![Courbe des valeurs des temps d’exécution en fonction des valeurs de nLoops](TempsExecution_vs_nLoops_TD2C.png)
+![Courbe des valeurs des temps d’exécution en fonction des valeurs de nLoops](tp2.png)
 
 ### Échantillonage du temps d’exécution d’une fonction
 
