@@ -131,7 +131,7 @@ Sortie :
 ```sh
 Début des tests de performance...
 ----------------------------------------
-     nLoops | Valeur finale | Temps d'exécution
+     nLoops | Valeur finale | Temps dexécution
 ----------------------------------------
 nLoops:          100 | Valeur finale:          100 | Temps: 0.000023 s
 nLoops:         1000 | Valeur finale:  1000.000000 | Temps: 0.000200 s
