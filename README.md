@@ -110,18 +110,18 @@ Sortie :
 2. double stopLoop() : Pas const -> Cette méthode modifie l'attribut doStop (en le passant à true), donc elle ne peut pas être const.
 3. double runLoop(double nLoops) : Pas const -> Cette méthode modifie à la fois iLoop (incrémentation) et doStop (réinitialisation), donc elle ne peut pas être const.
 
-**Comment doit-on qualifier les variables doStop et iLoop si on veut être certain que la boucle d’incrémentation s’exécutera comme attendu ?**
+**Comment doit-on qualifier les variables doStop et iLoop si on veut être certain que la boucle d’incrémentation s’exécutera comme attendu?**
 
 Pour garantir que la boucle d'incrémentation dans Looper::runLoop() s'exécute comme attendu sans optimisations indésirables du compilateur et avec une synchronisation thread-safe (si le code est utilisé en contexte multithread), les variables doStop et iLoop doivent être qualifiées comme suit :
 
 1. std::atomic<bool> doStop;
-    a. Atomicité : garantit que les opérations de lecture/écriture sur doStop sont indivisibles (évite les corruptions de données en multithread).
-    b. Visibilité : Les modifications de doStop sont immédiatement visibles par tous les threads (pas de caching local).
-    c. Évite les optimisations agressives : Le compilateur ne supprimera pas les accès à doStop (contrairement à un bool standard).
+    1.1. Atomicité : garantit que les opérations de lecture/écriture sur doStop sont indivisibles (évite les corruptions de données en multithread).
+    1.2. Visibilité : Les modifications de doStop sont immédiatement visibles par tous les threads (pas de caching local).
+    1.3. Évite les optimisations agressives : Le compilateur ne supprimera pas les accès à doStop (contrairement à un bool standard).
 
 2. std::atomic<double> iLoop;
-    a. Atomicité : Nécessaire si iLoop est accédé/modifié par plusieurs threads.
-    b. Précision :assure des opérations thread-safe sur un flottant.
+    2.1. Atomicité : Nécessaire si iLoop est accédé/modifié par plusieurs threads.
+    2.2. Précision :assure des opérations thread-safe sur un flottant.
 
 Compilez les fichiers sources :
 ```sh
