@@ -115,13 +115,13 @@ Sortie :
 Pour garantir que la boucle d'incrémentation dans Looper::runLoop() s'exécute comme attendu sans optimisations indésirables du compilateur et avec une synchronisation thread-safe (si le code est utilisé en contexte multithread), les variables doStop et iLoop doivent être qualifiées comme suit :
 
 1. std::atomic<bool> doStop;
-    1.1. Atomicité : garantit que les opérations de lecture/écriture sur doStop sont indivisibles (évite les corruptions de données en multithread).
-    1.2. Visibilité : Les modifications de doStop sont immédiatement visibles par tous les threads (pas de caching local).
-    1.3. Évite les optimisations agressives : Le compilateur ne supprimera pas les accès à doStop (contrairement à un bool standard).
+    - Atomicité : garantit que les opérations de lecture/écriture sur doStop sont indivisibles (évite les corruptions de données en multithread).
+    -  Visibilité : Les modifications de doStop sont immédiatement visibles par tous les threads (pas de caching local).
+    -  Évite les optimisations agressives : Le compilateur ne supprimera pas les accès à doStop (contrairement à un bool standard).
 
 2. std::atomic<double> iLoop;
-    2.1. Atomicité : Nécessaire si iLoop est accédé/modifié par plusieurs threads.
-    2.2. Précision :assure des opérations thread-safe sur un flottant.
+   - Atomicité : Nécessaire si iLoop est accédé/modifié par plusieurs threads.
+   -  Précision :assure des opérations thread-safe sur un flottant.
 
 Compilez les fichiers sources :
 ```sh
